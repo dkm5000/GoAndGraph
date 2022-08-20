@@ -1,2 +1,2 @@
 # GraphingCalculator
-Goal: to display graphs of mathematical functions
+Displays graphs of mathematical functions
