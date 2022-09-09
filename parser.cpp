@@ -305,6 +305,8 @@ Token operation(Token oper, vector<Token> operands)
 
 double Expression::calculate(double x)
 {
+    reverse_polish();
+    
     stack<Token> value_stack;
 
     for (int i = 0; i < rpn_output.size(); ++i)
