@@ -21,14 +21,9 @@ struct Color
 class Image
 {
 public:
-    Image(int width, int height)
-        : i_width(width), i_height(height), i_colors(vector<Color>(width * height))
-    {
-    };
+    Image(int width, int height);
 
-    ~Image()
-    {
-    };
+    ~Image();
 
     Color get_color(int x, int y) const { return i_colors[y * i_width + x]; };
 
