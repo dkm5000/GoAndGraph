@@ -19,6 +19,15 @@ Color::Color(float r_inp, float g_inp, float b_inp)
 
 Color::~Color() {};
 
+Image::Image(int width, int height)
+{
+    i_width = width;
+    i_height = height;
+    i_colors(vector<Color>(width * height);
+};
+
+Image::~Image() {};
+
 void Image::set_color(const Color& color, int x, int y)
 {
     i_colors[y * i_width + x].r = color.r;
@@ -125,6 +134,5 @@ void Image::export_bmp(const char* path)
 
     f.close();
 
-    cout << "File created\n";
+    cout << "Image created\n";
 };
-
