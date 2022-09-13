@@ -1,13 +1,13 @@
 #include "bmp_image.h"
 
-const float PRIMARY_COLOR_MAX = 255.0f;
-const float PRIMARY_COLOR_MIN = 0.0f;
+const float PRIMARY_COLOR_MAX = 1;
+const float PRIMARY_COLOR_MIN = 0;
 
 Color::Color()
 {
-    r = 0;
-    g = 0;
-    b = 0;
+    r = PRIMARY_COLOR_MAX;
+    g = PRIMARY_COLOR_MAX;
+    b = PRIMARY_COLOR_MAX;
 };
 
 Color::Color(float r_inp, float g_inp, float b_inp)
@@ -23,7 +23,7 @@ Image::Image(int width, int height)
 {
     i_width = width;
     i_height = height;
-    i_colors(vector<Color>(width * height);
+    i_colors.resize(width * height);
 };
 
 Image::~Image() {};
@@ -134,5 +134,98 @@ void Image::export_bmp(const char* path)
 
     f.close();
 
-    cout << "Image created\n";
+    cout << "\nGraph created in " << path << "\n";
 };
+
+void Image::line(int x1, int y1, int x2, int y2)
+{
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+    int xi = 1;
+
+    if (dx < 0)
+    {
+        xi = -1;
+        dx = -dx;
+    }
+
+    int d = 2 * dx - dy;
+    int x = x1;
+
+    for (int y = y1; y <= y2; ++y)
+    {
+        set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y);
+        if (d > 0)
+        {
+            x += xi;
+            d += 2 * (dx - dy);
+        }
+        else
+        {
+            d += 2 * dx;
+        }
+    }
+}
+
+void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input)
+{
+    if (x1_input == x2_input)
+    {
+        if (y1_input < y2_input)
+        {
+            for (int y = y1_input; y <= y2_input; ++y)
+            {
+                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x1_input, y);
+            }
+        }
+        else
+        {
+            for (int y = y2_input; y <= y1_input; ++y)
+            {
+                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x1_input, y);
+            }
+        }
+    }
+    else if (y1_input == y2_input)
+    {
+        if (x1_input < x2_input)
+        {
+            for (int x = x1_input; x <= x2_input; ++x)
+            {
+                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y1_input);
+            }
+        }
+        else
+        {
+            for (int x = x2_input; x <= x1_input; ++x)
+            {
+                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y1_input);
+            }
+        }
+
+    }
+    else if (abs(y2_input - y1_input) < abs(x2_input - x1_input))
+    {
+        if (y1_input > y2_input)
+        {
+            line(x2_input, y2_input, x1_input, y1_input);
+        }
+        else
+        {
+            line(x1_input, y1_input, x2_input, y2_input);
+        }
+    }
+    else if (y1_input > y2_input)
+    {
+        line(x2_input, y2_input, x1_input, y1_input);
+    }
+    else
+    {
+        line(x1_input, y1_input, x2_input, y2_input);
+    }
+}
+
+int to_pixel(double c, double min_c, double max_c, int len)
+{
+    return int ((c - min_c) * len / (max_c - min_c + 1));
+}
