@@ -20,8 +20,10 @@ public:
     int get_parameters() { return parameters; };
     double get_value() { return value; };
     string get_associativity() { return associativity; };
+    bool get_incl_var() { return incl_var; };
 
     void set_associativity(string assoc);
+    void set_incl_var(bool v);
     void set_symbol(string symb);
     void set_precedence(int pred);
     void set_parameters(int param);
@@ -31,6 +33,7 @@ private:
     string type;                    // num, oper, func, var, lbr, rbr
     string associativity;           // left, right
     string symbol;
+    bool incl_var = 0;
     double value;
     int precedence;
     int parameters;
