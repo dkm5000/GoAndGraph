@@ -67,6 +67,7 @@ Token::Token(string t_str)
     {
         type = "var";
         symbol = "x";
+        incl_var = true;
     }
     else
     {
@@ -77,6 +78,11 @@ Token::Token(string t_str)
 void Token::set_associativity(string assoc)
 {
     associativity = assoc;
+}
+
+void Token::set_incl_var(bool v)
+{
+    incl_var = v;
 }
 
 void Token::set_value(double val)
@@ -274,10 +280,18 @@ Token operation(Token oper, vector<Token> operands)
     if (oper.get_symbol() == "+")
     {
         operands[0].set_value(operands[0].get_value() + operands[1].get_value());
+        if (operands[1].get_incl_var() == true)
+        {
+            operands[0].set_incl_var(true);
+        }
     }
     else if (oper.get_symbol() == "-")
     {
         operands[0].set_value(operands[1].get_value() - operands[0].get_value());
+        if (operands[1].get_incl_var() == true)
+        {
+            operands[0].set_incl_var(true);
+        }
     }
     else if (oper.get_symbol() == "_")
     {
@@ -286,14 +300,48 @@ Token operation(Token oper, vector<Token> operands)
     else if (oper.get_symbol() == "*")
     {
         operands[0].set_value(operands[0].get_value() * operands[1].get_value());
+        if (operands[1].get_incl_var() == true)
+        {
+            operands[0].set_incl_var(true);
+        }
     }
     else if (oper.get_symbol() == "/")
     {
+        try
+        {
+            if (operands[0].get_value() == 0 && operands[0].get_incl_var() == true)
+            {
+                throw(4);
+            }
+            else if (operands[0].get_value() == 0)
+            {
+                throw(5);
+            }
+        }
+        catch (int err)
+        {
+            if (err == 3)
+            {
+                cout << "\nError " << err << ": Please, try another interval\n";
+            }
+            else
+            {
+                cout << "\nError " << err << ": Division by zero\n";
+            }
+        }
         operands[0].set_value(operands[1].get_value() / operands[0].get_value());
+        if (operands[1].get_incl_var() == true)
+        {
+            operands[0].set_incl_var(true);
+        }
     }
     else if (oper.get_symbol() == "^")
     {
         operands[0].set_value(pow(operands[1].get_value(), operands[0].get_value()));
+        if (operands[1].get_incl_var() == true)
+        {
+            operands[0].set_incl_var(true);
+        }
     }
     else
     {
@@ -305,8 +353,6 @@ Token operation(Token oper, vector<Token> operands)
 
 double Expression::calculate(double x)
 {
-    reverse_polish();
-    
     stack<Token> value_stack;
 
     for (int i = 0; i < rpn_output.size(); ++i)
@@ -358,8 +404,8 @@ double Expression::calculate(double x)
     {
         cout << "Error " << err << ": too many values";
     }
-    return value_stack.top().get_value();
+
+    double res = value_stack.top().get_value();
+    value_stack.pop();
+    return res;
 }
-
-
-
