@@ -31,10 +31,16 @@ public:
 
     void export_bmp(const char* path);
 
+    void draw_line(int x1_input, int y1_input, int x2_input, int y2_input);
+    void line(int x1, int y1, int x2, int y2);
+
 private:
     int i_width;
     int i_height;
     vector<Color> i_colors;
 };
+
+int to_pixel(double c, double min_c, double max_c, int len);
+
 
 #endif // BMP_IMAGE_H_INCLUDED
