@@ -1,4 +1,4 @@
-#include "bmp_image.h"
+#include "graphics.h"
 
 const float PRIMARY_COLOR_MAX = 1;
 const float PRIMARY_COLOR_MIN = 0;
