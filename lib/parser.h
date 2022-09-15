@@ -57,6 +57,8 @@ public:
     void print_reverse_polish();
 
 private:
+    double from;
+    double to;
     string str;
     vector <Token> tokens;
     vector<Token> rpn_output;
