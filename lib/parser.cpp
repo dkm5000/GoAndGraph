@@ -69,6 +69,46 @@ Token::Token(string t_str)
         symbol = "x";
         incl_var = true;
     }
+    else if (t_str == "sin")
+    {
+        type = "func";
+        symbol = "sin";
+        associativity = "right";
+        precedence = 40;
+        parameters = 1;
+    }
+    else if (t_str == "cos")
+    {
+        type = "func";
+        symbol = "cos";
+        associativity = "right";
+        precedence = 40;
+        parameters = 1;
+    }
+    else if (t_str == "abs")
+    {
+        type = "func";
+        symbol = "abs";
+        associativity = "right";
+        precedence = 40;
+        parameters = 1;
+    }
+    else if (t_str == "log")
+    {
+        type = "func";
+        symbol = "log";
+        associativity = "right";
+        precedence = 40;
+        parameters = 1;
+    }
+    else if (t_str == "tan")
+    {
+        type = "func";
+        symbol = "tan";
+        associativity = "right";
+        precedence = 40;
+        parameters = 1;
+    }
     else
     {
         cout << "Error: undefined type: " << t_str << endl;
@@ -187,6 +227,10 @@ void Expression::reverse_polish()
         {
             rpn_output.push_back(tokens[i]);
         }
+        else if (tokens[i].get_type() == "func")
+        {
+            operator_stack.push(tokens[i]);
+        }
         else if (tokens[i].get_type() == "oper")
         {
             while (!operator_stack.empty() &&
@@ -238,6 +282,12 @@ void Expression::reverse_polish()
             }
 
             operator_stack.pop();
+
+            if (operator_stack.top().get_type() == "func")
+            {
+                rpn_output.push_back(operator_stack.top());
+                operator_stack.pop();
+            }
         }
     }
 
@@ -343,6 +393,48 @@ Token operation(Token oper, vector<Token> operands)
             operands[0].set_incl_var(true);
         }
     }
+    else if (oper.get_symbol() == "sin")
+    {
+        operands[0].set_value(sin(operands[0].get_value()));
+    }
+    else if (oper.get_symbol() == "cos")
+    {
+        operands[0].set_value(cos(operands[0].get_value()));
+    }
+    else if (oper.get_symbol() == "abs")
+    {
+        operands[0].set_value(abs(operands[0].get_value()));
+    }
+    else if (oper.get_symbol() == "log")
+    {
+        try
+        {
+            if (operands[0].get_value() == 0)
+            {
+                throw(6);
+            }
+        }
+        catch (int err)
+        {
+            cout << "\nError " << err << ": Input out of domain: log(x)\n";
+        }
+        operands[0].set_value(log(operands[0].get_value()));
+    }
+    else if (oper.get_symbol() == "tan")
+    {
+        try
+        {
+            if (cos(operands[0].get_value()) == 0)
+            {
+                throw(7);
+            }
+        }
+        catch (int err)
+        {
+            cout << "\nError " << err << ": Input out of domain: tan(x)\n";
+        }
+        operands[0].set_value(tan(operands[0].get_value()));
+    }
     else
     {
         cout << "Error: unknown operator: " << oper.get_symbol() << endl;
@@ -366,7 +458,7 @@ double Expression::calculate(double x)
             rpn_output[i].set_value(x);
             value_stack.push(rpn_output[i]);
         }
-        else if (rpn_output[i].get_type() == "oper")
+        else if (rpn_output[i].get_type() == "oper" || rpn_output[i].get_type() == "func")
         {
             try
             {

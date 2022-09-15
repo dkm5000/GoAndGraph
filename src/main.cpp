@@ -100,7 +100,7 @@ int main()
     {
         for (int j = 0; j < BMP_HEIGHT; ++j)
         {
-            graph.set_color(Color(), i, j);
+            graph.set_color(Color(PRIMARY_COLOR_MAX, PRIMARY_COLOR_MAX, PRIMARY_COLOR_MAX), i, j);
         }
     }
 
@@ -108,12 +108,14 @@ int main()
     graph.draw_line(to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                     to_pixel(max_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME + AXIS_EXT,
                     to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                    to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME - AXIS_EXT);
+                    to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME - AXIS_EXT,
+                    Color());
     // x-axis
     graph.draw_line(to_pixel(max_x, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME + AXIS_EXT,
                     to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                     to_pixel(min_x, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME - AXIS_EXT,
-                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                    Color());
 
 
     k = 0;
@@ -126,11 +128,13 @@ int main()
             graph.draw_line(to_pixel(i, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[k], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(i, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(max_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(max_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
             graph.draw_line(to_pixel(i + step, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[k + 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(i + step, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
         }
         else if (i > x1 &&
             (derivative(i - step, y_values[k - 1], i, y_values[k]) < 0 && derivative(i + step, y_values[k + 1], i + 2 * step, y_values[k + 2]) < 0 && y_values[k] < y_values[k + 1]))
@@ -138,18 +142,21 @@ int main()
             graph.draw_line(to_pixel(i, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[k], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(i, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(min_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
             graph.draw_line(to_pixel(i + step, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[k + 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(i + step, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(max_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(max_y, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
         }
         else
         {
             graph.draw_line(to_pixel(i, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[k], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(i + step, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(y_values[k + 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(y_values[k + 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
         }
         last = i + step;
         ++k;
@@ -159,7 +166,8 @@ int main()
         graph.draw_line(to_pixel(last, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                         to_pixel(y_values[y_values.size() - 2], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                         to_pixel(x2, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                        to_pixel(y_values[y_values.size() - 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                        to_pixel(y_values[y_values.size() - 1], min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                        Color(0.62 * PRIMARY_COLOR_MAX, 0.12 * PRIMARY_COLOR_MAX, 0.95 * PRIMARY_COLOR_MAX));
     }
 
     //axis scaling
@@ -167,22 +175,26 @@ int main()
     graph.draw_line(to_pixel(x1, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                     to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME - graph.get_digit_height() / 2,
                     to_pixel(x1, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME + graph.get_digit_height() / 2);
+                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME + graph.get_digit_height() / 2,
+                    Color());
     graph.draw_number(x2, to_pixel(x2, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME, to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME - graph.get_digit_height());
     graph.draw_line(to_pixel(x2, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
                     to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME - graph.get_digit_height() / 2,
                     to_pixel(x2, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME,
-                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME + graph.get_digit_height() / 2);
+                    to_pixel(0, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME + graph.get_digit_height() / 2,
+                    Color());
     graph.draw_number(y1, to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME + graph.get_digit_width(), to_pixel(y1, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
     graph.draw_line(to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME - graph.get_digit_width() / 2,
                     to_pixel(y1, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                     to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME + graph.get_digit_width() / 2,
-                    to_pixel(y1, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                    to_pixel(y1, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                    Color());
     graph.draw_number(y2, to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME + graph.get_digit_width(), to_pixel(y2, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
     graph.draw_line(to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME - graph.get_digit_width() / 2,
                     to_pixel(y2, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
                     to_pixel(0, min_x, max_x, BMP_WIDTH - 2 * FRAME) + FRAME + graph.get_digit_width() / 2,
-                    to_pixel(y2, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME);
+                    to_pixel(y2, min_y, max_y, BMP_HEIGHT - 2 * FRAME) + FRAME,
+                    Color());
 
 
     graph.export_bmp("graph.bmp");

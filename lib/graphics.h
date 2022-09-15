@@ -7,6 +7,9 @@
 
 using namespace std;
 
+const float PRIMARY_COLOR_MAX = 1;
+const float PRIMARY_COLOR_MIN = 0;
+
 struct Color
 {
     float r, g, b;
@@ -33,8 +36,8 @@ public:
 
     void export_bmp(const char* path);
 
-    void draw_line(int x1_input, int y1_input, int x2_input, int y2_input);
-    void line(int x1, int y1, int x2, int y2);
+    void draw_line(int x1_input, int y1_input, int x2_input, int y2_input, Color color);
+    void line(int x1, int y1, int x2, int y2, Color color);
     void draw_number(double n, int x, int y);
     void draw_digit(int d, int& x, int& y);
 
