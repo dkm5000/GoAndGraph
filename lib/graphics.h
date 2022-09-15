@@ -26,6 +26,8 @@ public:
     ~Image();
 
     Color get_color(int x, int y) const { return i_colors[y * i_width + x]; };
+    int get_digit_height() { return digit_height; };
+    int get_digit_width() { return digit_width; };
 
     void set_color(const Color& color, int x, int y);
 
@@ -33,10 +35,15 @@ public:
 
     void draw_line(int x1_input, int y1_input, int x2_input, int y2_input);
     void line(int x1, int y1, int x2, int y2);
+    void draw_number(double n, int x, int y);
+    void draw_digit(int d, int& x, int& y);
+
 
 private:
     int i_width;
     int i_height;
+    int digit_height;
+    int digit_width;
     vector<Color> i_colors;
 };
 
