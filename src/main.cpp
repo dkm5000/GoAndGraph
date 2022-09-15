@@ -198,6 +198,8 @@ int main()
 
 
     graph.export_bmp("graph.bmp");
+    
+    system("pause");
 
     return 0;
 }
