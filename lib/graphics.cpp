@@ -1,16 +1,14 @@
 #include "graphics.h"
 #include <math.h>
 
-const float PRIMARY_COLOR_MAX = 1;
-const float PRIMARY_COLOR_MIN = 0;
 const int DECIM_NUM = 2;
 const int DIG_DIST = 5;
 
 Color::Color()
 {
-    r = PRIMARY_COLOR_MAX;
-    g = PRIMARY_COLOR_MAX;
-    b = PRIMARY_COLOR_MAX;
+    r = PRIMARY_COLOR_MIN;
+    g = PRIMARY_COLOR_MIN;
+    b = PRIMARY_COLOR_MIN;
 };
 
 Color::Color(float r_inp, float g_inp, float b_inp)
@@ -142,7 +140,7 @@ void Image::export_bmp(const char* path)
     cout << "\nGraph created in " << path << "\n";
 };
 
-void Image::line(int x1, int y1, int x2, int y2)
+void Image::line(int x1, int y1, int x2, int y2, Color color)
 {
     int dx = x2 - x1;
     int dy = y2 - y1;
@@ -159,7 +157,7 @@ void Image::line(int x1, int y1, int x2, int y2)
 
     for (int y = y1; y <= y2; ++y)
     {
-        set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y);
+        set_color(color, x, y);
         if (d > 0)
         {
             x += xi;
@@ -172,7 +170,7 @@ void Image::line(int x1, int y1, int x2, int y2)
     }
 }
 
-void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input)
+void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input, Color color)
 {
     if (x1_input == x2_input)
     {
@@ -180,14 +178,14 @@ void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input)
         {
             for (int y = y1_input; y <= y2_input; ++y)
             {
-                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x1_input, y);
+                set_color(color, x1_input, y);
             }
         }
         else
         {
             for (int y = y2_input; y <= y1_input; ++y)
             {
-                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x1_input, y);
+                set_color(color, x1_input, y);
             }
         }
     }
@@ -197,14 +195,14 @@ void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input)
         {
             for (int x = x1_input; x <= x2_input; ++x)
             {
-                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y1_input);
+                set_color(color, x, y1_input);
             }
         }
         else
         {
             for (int x = x2_input; x <= x1_input; ++x)
             {
-                set_color(Color(PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN, PRIMARY_COLOR_MIN), x, y1_input);
+                set_color(color, x, y1_input);
             }
         }
 
@@ -213,20 +211,20 @@ void Image::draw_line(int x1_input, int y1_input, int x2_input, int y2_input)
     {
         if (y1_input > y2_input)
         {
-            line(x2_input, y2_input, x1_input, y1_input);
+            line(x2_input, y2_input, x1_input, y1_input, color);
         }
         else
         {
-            line(x1_input, y1_input, x2_input, y2_input);
+            line(x1_input, y1_input, x2_input, y2_input, color);
         }
     }
     else if (y1_input > y2_input)
     {
-        line(x2_input, y2_input, x1_input, y1_input);
+        line(x2_input, y2_input, x1_input, y1_input, color);
     }
     else
     {
-        line(x1_input, y1_input, x2_input, y2_input);
+        line(x1_input, y1_input, x2_input, y2_input, color);
     }
 }
 
@@ -234,72 +232,72 @@ void Image::draw_digit(int d, int& x, int& y)
 {
     if (d == 0)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y + digit_height / 2, x, y - digit_height / 2);
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y + digit_height / 2, x, y - digit_height / 2, Color());
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2, Color());
     }
     else if (d == 1)
     {
-        draw_line(x + digit_width / 2, y + digit_height / 2, x + digit_width / 2, y - digit_height / 2);
+        draw_line(x + digit_width / 2, y + digit_height / 2, x + digit_width / 2, y - digit_height / 2, Color());
     }
     else if (d == 2)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x, y, x, y - digit_height / 2);
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x, y, x, y - digit_height / 2, Color());
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y, Color());
     }
     else if (d == 3)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2, Color());
     }
     else if (d == 4)
     {
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x, y + digit_height / 2, x, y);
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x, y + digit_height / 2, x, y, Color());
     }
     else if (d == 5)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x, y, x, y + digit_height / 2);
-        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x, y, x, y + digit_height / 2, Color());
+        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y, Color());
     }
     else if (d == 6)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x, y - digit_height / 2, x, y + digit_height / 2);
-        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x, y - digit_height / 2, x, y + digit_height / 2, Color());
+        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y, Color());
     }
     else if (d == 7)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2, Color());
     }
     else if (d == 8)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y + digit_height / 2, x, y - digit_height / 2);
-        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y + digit_height / 2, x, y - digit_height / 2, Color());
+        draw_line(x + digit_width, y + digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
     }
     else if (d == 9)
     {
-        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2);
-        draw_line(x, y, x + digit_width, y);
-        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y + digit_height / 2);
-        draw_line(x, y + digit_height / 2, x, y);
+        draw_line(x, y + digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y - digit_height / 2, x + digit_width, y - digit_height / 2, Color());
+        draw_line(x, y, x + digit_width, y, Color());
+        draw_line(x + digit_width, y - digit_height / 2, x + digit_width, y + digit_height / 2, Color());
+        draw_line(x, y + digit_height / 2, x, y, Color());
     }
 
     x += digit_width + DIG_DIST;
@@ -312,7 +310,7 @@ void Image::draw_number(double n, int x, int y)
 
     if (n < 0)
     {
-        draw_line(x, y, x + digit_width, y);
+        draw_line(x, y, x + digit_width, y, Color());
         x += digit_width + DIG_DIST;
         n = -n;
     }
@@ -343,7 +341,7 @@ void Image::draw_number(double n, int x, int y)
 
     if (!decim_f.empty())
     {
-        draw_line(x, y - digit_height / 2 + digit_height / 10, x, y - digit_height / 2 - digit_height / 5);
+        draw_line(x, y - digit_height / 2 + digit_height / 10, x, y - digit_height / 2 - digit_height / 5, Color());
         x += digit_width / 2 + DIG_DIST;
 
         for (int i = decim_f.size() - 1; i >= 0 ; --i)
