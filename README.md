@@ -1,2 +1,2 @@
-# GraphingCalculator
-Displays graphs of mathematical functions
+# Go&Graph
+Go&Graph is a simple graphing calculator.
