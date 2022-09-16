@@ -8,3 +8,6 @@ Go&Graph supports:
 * mathematical constants: pi, e
 
 The application generates the graph as a bitmap image file that can be found in the Go&Graph installation directory.
+
+## Examples
+
