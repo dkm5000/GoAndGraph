@@ -15,6 +15,16 @@ Token::Token(string t_str)
         value = stod(t_str);
         type = "num";
     }
+    else if (t_str == "pi")
+    {
+        value = 3.14159265359;
+        type = "num";
+    }
+    else if (t_str == "e")
+    {
+        value = 2.71828;
+        type = "num";
+    }
     else if (t_str == "(")
     {
         type = "lbr";
