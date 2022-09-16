@@ -17,15 +17,16 @@ The whole project is developed using C++ and includes multiple source and header
 * main.cpp
 
 ### Mathematical expression parser
-Based on the shunting yard algorithm, the evaluator converts user input (infix expressions) to Reverse Polish notation.
+Converts user input (infix expressions) to Reverse Polish notation without using any external parsing libraries.
+* based on the shunting yard algorithm
 * works with mathematical functions, constants and variables
 * evaluates expressions
 
 ### Image generator
-Creates BMP files without using external graphics libraries.
+Creates BMP files without using any external graphics libraries.
 * sketches graphs
-* uses Bresenham's line algorithm
-* can draw numbers (for axis scaling)
+* based on Bresenham's line algorithm
+* draws numbers (for axis scaling)
 
 ## Examples
 ### y(x) = 5sin(1 / (x - 5)
