@@ -27,5 +27,11 @@ Based on the shunting yard algorithm, the evaluator converts user input (infix e
 * uses Bresenham's line algorithm
 * can draw numbers (for axis scaling)
 
+## Examples
+### y(x) = 5sin(1 / (x - 5)
+![](https://github.com/dkm5000/GoAndGraph/blob/main/doc/examples/console_app_example1.png)
+### y(x) = 0.25x^3 + 0.5x^2 - 2x + 5
+### y(x) = x^2 + 1/x
+
 ## Getting Started
 [Download the app](https://github.com/dkm5000/GoAndGraph/releases/tag/v1.0) (currently available only for Windows) and create your first graph!
