@@ -18,12 +18,12 @@ The whole project is developed using C++ and includes multiple source and header
 
 ### Mathematical expression parser
 Based on the shunting yard algorithm, the evaluator converts user input (infix expressions) to Reverse Polish notation.
-#### Features
 * works with mathematical functions, constants and variables
 * evaluates expressions
 
 ### Image generator
-* sketches the graph
+Creates and alters BMP files without using external graphics libraries.
+* sketches graphs
 * uses Bresenham's line algorithm
 * can draw numbers (for axis scaling)
 
