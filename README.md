@@ -22,7 +22,7 @@ Based on the shunting yard algorithm, the evaluator converts user input (infix e
 * evaluates expressions
 
 ### Image generator
-Creates and alters BMP files without using external graphics libraries.
+Creates BMP files without using external graphics libraries.
 * sketches graphs
 * uses Bresenham's line algorithm
 * can draw numbers (for axis scaling)
