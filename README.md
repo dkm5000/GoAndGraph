@@ -6,4 +6,5 @@ Go&Graph supports:
 * most common operators: +, - (unary and binary), *, /, ^
 * following mathematical functions: sin(x), cos(x), tan(x), log(x), abs(x)
 * mathematical constants: pi, e
+
 The applications generates the graph as a bitmap image file that can be found in the Go&Graph installation directory.
