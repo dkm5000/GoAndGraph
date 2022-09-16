@@ -25,7 +25,7 @@ Converts user input (infix expressions) to Reverse Polish notation without using
 ### Image generator
 Creates and modifies BMP files without using any external graphics libraries.
 * sketches graphs by connecting points with lines
-** based on Bresenham's line algorithm
+    - based on Bresenham's line algorithm
 * draws numbers (for axis scaling)
 
 ## Examples
