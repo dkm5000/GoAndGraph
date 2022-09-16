@@ -1,5 +1,5 @@
 # Go&Graph
-Go&Graph is a simple graphing calculator that allows a user graph a mathematical function over a given interval.
+Go&Graph is a simple graphing calculator that allows users to graph a mathematical function over a given interval.
 
 ## Features
 Go&Graph supports:
